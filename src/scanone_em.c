@@ -160,7 +160,7 @@ void scanone_em(int n_ind, int n_pos, int n_gen, double ***Genoprob,
                     work[1][k] /= s2;
                 }
                 oldsig = sqrt(s1/(double)n_ind);
-                printf("%d %d %lf %lf %lf\n", i, k, work[1][k], s2, s3);
+                Rprintf("%d %d %lf %lf %lf\n", i, k, work[1][k], s2, s3);
             }
             else { /* start using random weights */
                 for(k=0; k<n_gen; k++) {
