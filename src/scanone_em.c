@@ -158,7 +158,6 @@ void scanone_em(int n_ind, int n_pos, int n_gen, double ***Genoprob,
                     }
                     s1 += (s3 - work[1][k]*work[1][k]/s2); /* RSS */
                     work[1][k] /= s2;
-                    Rprintf("%d %d %lf %lf %lf\n", i, k, work[1][k], s2, s3);
                 }
                 oldsig = sqrt(s1/(double)n_ind);
             }
@@ -226,6 +225,8 @@ void scanone_em(int n_ind, int n_pos, int n_gen, double ***Genoprob,
             for(k=0; k<n_gen; k++) work[1][k] = means[k];
 
         } /* end of EM iterations */
+        
+        Rprintf("%d\n", s);
 
         if(flag) warning("Didn't converge!\n");
 
