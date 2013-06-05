@@ -151,7 +151,7 @@ void scanone_em(int n_ind, int n_pos, int n_gen, double ***Genoprob,
             if(std_start == 1) { /* the usual starting points */
                 for(k=0; k<n_gen; k++) {
                     work[1][k] = s2 = s3 = 0.0;
-                    for(j=0; j<n_ind; j++) {l
+                    for(j=0; j<n_ind; j++) {
                         s2 += Genoprob[k][i][j]*weights[j]; /* count up numbers */
                         work[1][k] += Genoprob[k][i][j]*pheno[j]*weights[j]; /* means */
                         s3 += Genoprob[k][i][j]*pheno[j]*pheno[j]*weights[j]; /* for RSS */
