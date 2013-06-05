@@ -627,7 +627,7 @@ function(cross, chr, pheno.col=1, model=c("normal","binary","2part","np"),
     }
    
     else if(method=="em" && model=="normal")  # interval mapping
-      z <- .C("R_scanone_em",
+      z <- .C("R_scanone_em", # z is the results
               as.integer(n.ind),         # number of individuals
               as.integer(n.pos),         # number of markers
               as.integer(n.gen),         # number of possible genotypes
@@ -660,7 +660,7 @@ function(cross, chr, pheno.col=1, model=c("normal","binary","2part","np"),
     else
       stop("Model ", model, " with method ", method, " not available")
 
-    z <- matrix(z$result,nrow=n.pos)
+    z <- matrix(z$result,nrow=n.pos) # filter for only results
 
     # interval mapping without covariates:
     #   rescale log likelihood
@@ -680,9 +680,9 @@ function(cross, chr, pheno.col=1, model=c("normal","binary","2part","np"),
     # get null log10 likelihood
     if(i==1 & model != "np") {
       if(n.ac > 0)
-        resid0 <- lm(pheno ~ ac, weights=weights^2)$resid
+        resid0 <- lm(pheno ~ ac, weights=weights^2)$resid #will have to do this later
       else 
-        resid0 <- lm(pheno ~ 1, weights=weights^2)$resid
+        resid0 <- lm(pheno ~ 1, weights=weights^2)$resid #assume this
 
       if(method=="hk")  { 
         if(n.phe > 1) {
@@ -694,8 +694,8 @@ function(cross, chr, pheno.col=1, model=c("normal","binary","2part","np"),
       }
 
       else {
-        sig0 <- sqrt(sum((resid0*weights)^2)/n.ind)
-        nllik0 <- -sum(dnorm(resid0,0,sig0/weights,log=TRUE))/log(10)
+        sig0 <- sqrt(sum((resid0*weights)^2)/n.ind) #em
+        nllik0 <- -sum(dnorm(resid0,0,sig0/weights,log=TRUE))/log(10) #em
       }
     }
 
@@ -831,7 +831,7 @@ function(cross, chr, pheno.col=1, model=c("normal","binary","2part","np"),
                pos=as.numeric(map), z)
     rownames(z) <- w
 
-    results <- rbind(results, z)
+    results <- rbind(results, z) # combine z with the existing results by rows.
   }
 
   class(results) <- c("scanone","data.frame")
